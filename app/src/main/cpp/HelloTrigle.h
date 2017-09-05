@@ -13,11 +13,9 @@ public:
     void resize(int w,int h);
     void update();
     void destory();
-    static GLuint loadShader(GLenum type , const char *shaderSrc);
+
 
 private:
-    int m_width;
-    int m_height;
     GLuint m_program;
 };
 
