@@ -13,6 +13,7 @@ public:
     virtual void resize(int w,int h) = 0;
     virtual void update() = 0;
     virtual void destory() = 0;
+
     static GLuint loadShader(GLenum type , const char *shaderSrc);
 protected:
     int m_width;
