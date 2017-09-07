@@ -14,6 +14,7 @@ public:
     virtual void update() = 0;
     virtual void destory() = 0;
 
+    static GLuint loadProgram(const char *vertexShaderSrc,const char *fragShaderSrc);
     static GLuint loadShader(GLenum type , const char *shaderSrc);
 protected:
     int m_width;
