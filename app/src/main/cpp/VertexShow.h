@@ -14,7 +14,11 @@ public:
     void update();
     void destory();
 
+protected:
+    GLuint m_second_program;
+
 private:
+    int frame = 0;
     int VERTEX_POS_SIZE  = 3;
     int VERTEX_NORMAL_SIZE = 3;
     int VERTEX_TEXCOOR0_SIZE = 2;

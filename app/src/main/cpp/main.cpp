@@ -4,6 +4,7 @@
 #include "HelloTrigle.h"
 #include "VertexDemo.h"
 #include "VertexShow.h"
+#include "VboShow.h"
 
 static IExe *exe;
 
@@ -23,7 +24,8 @@ Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass t
 
     //exe = new HelloTrigle();
     //exe = new VertexDemo();
-    exe = new VertexShow();
+    //exe = new VertexShow();
+    exe = new VboShow();
     exe->init();
 }
 

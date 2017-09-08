@@ -29,6 +29,20 @@ int VertexShow::init() {
         ALOGE("%s", "load progream Error!");
     }
 
+    char fShaderStr2[] =
+            "#version 300 es    \n"
+                    "precision mediump float; \n"
+                    "out vec4 fragColor; \n"
+                    "void main() { \n"
+                    "   fragColor = vec4(1.0f , 1.0f , 0.0f , 1.0f); \n"
+                    "}  \n";
+
+    m_second_program = loadProgram(vShaderStr, fShaderStr2);
+
+    if (m_second_program == GL_FALSE) {
+        ALOGE("%s", "load progream Error!");
+    }
+
     glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
     return GL_TRUE;
@@ -50,12 +64,18 @@ void VertexShow::update() {
 
     glViewport(0, 0, this->m_width, this->m_height);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program);
+
+    frame++;
+    if (frame % 2 == 0) {
+        glUseProgram(m_program);
+    } else {
+        glUseProgram(m_second_program);
+    }
 
     glVertexAttrib4fv(0, color);
-    glVertexAttribPointer(1 , 3 , GL_FLOAT , GL_FALSE , 0, vertexPos);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, vertexPos);
     glEnableVertexAttribArray(1);
-    glDrawArrays(GL_TRIANGLES,0,3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisableVertexAttribArray(1);
 
     ALOGE("VertexShow::draw");

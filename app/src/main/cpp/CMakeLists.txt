@@ -23,6 +23,7 @@ add_library( # Sets the name of the library.
              HelloTrigle.cpp
              VertexDemo.cpp
              VertexShow.cpp
+             VboShow.cpp
              )
 
 add_library( test-lib
