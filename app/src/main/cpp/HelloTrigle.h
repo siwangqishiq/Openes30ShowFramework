@@ -13,10 +13,6 @@ public:
     void resize(int w,int h);
     void update();
     void destory();
-
-
-private:
-    GLuint m_program;
 };
 
 #endif //GLDRAW_HELLOTRIGLE_H

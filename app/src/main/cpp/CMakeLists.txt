@@ -22,6 +22,7 @@ add_library( # Sets the name of the library.
              IExe.cpp
              HelloTrigle.cpp
              VertexDemo.cpp
+             VertexShow.cpp
              )
 
 add_library( test-lib

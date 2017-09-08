@@ -19,6 +19,7 @@ public:
 protected:
     int m_width;
     int m_height;
+    GLuint m_program;
 };
 
 #endif //GLDRAW_IEXE_H
