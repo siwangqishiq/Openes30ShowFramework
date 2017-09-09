@@ -24,6 +24,7 @@ add_library( # Sets the name of the library.
              VertexDemo.cpp
              VertexShow.cpp
              VboShow.cpp
+             VaoInstance.cpp
              )
 
 add_library( test-lib

@@ -73,8 +73,8 @@ void VertexShow::update() {
     }
 
     glVertexAttrib4fv(0, color);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, vertexPos);
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, vertexPos);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisableVertexAttribArray(1);
 
