@@ -1,6 +1,7 @@
 package com.xinlan.openes30showframework;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
 import android.view.SurfaceHolder;
 
@@ -12,8 +13,10 @@ import javax.microedition.khronos.opengles.GL10;
  */
 
 public class RenderSurface extends GLSurfaceView implements GLSurfaceView.Renderer {
-    public RenderSurface(Context context) {
+    private AssetManager mAssetMgr;
+    public RenderSurface(Context context, AssetManager assetMgr) {
         super(context);
+        this.mAssetMgr = assetMgr;
         init();
     }
 
@@ -25,7 +28,7 @@ public class RenderSurface extends GLSurfaceView implements GLSurfaceView.Render
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        NativeRenderJNI.init();
+        NativeRenderJNI.init(mAssetMgr);
     }
 
     @Override

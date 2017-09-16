@@ -20,4 +20,15 @@ private:
     GLint m_sampler_loc;
 };
 
+
+class TextureImage : public IExe{
+public:
+    virtual int init();
+    virtual void resize(int w,int h);
+    virtual void update();
+    virtual void destory();
+protected:
+    GLboolean loadTexture();
+};
+
 #endif //OPENES30SHOWFRAMEWORK_TEXTURE_H

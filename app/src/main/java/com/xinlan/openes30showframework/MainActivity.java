@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRenderView = new RenderSurface(this);
+        mRenderView = new RenderSurface(this,getAssets());
         setContentView(mRenderView);
     }
 
