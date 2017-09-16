@@ -6,6 +6,8 @@
 #include "VertexShow.h"
 #include "VboShow.h"
 #include "VaoInstance.h"
+#include "ElemDraw.h"
+#include "Texture.h"
 
 static IExe *exe;
 
@@ -27,7 +29,9 @@ Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass t
     //exe = new VertexDemo();
     //exe = new VertexShow();
     //exe = new VboShow();
-    exe = new VaoInstance();
+    //exe = new VaoInstance();
+    //exe = new ElemDraw();
+    exe = new TextureInstance();
     exe->init();
 }
 
