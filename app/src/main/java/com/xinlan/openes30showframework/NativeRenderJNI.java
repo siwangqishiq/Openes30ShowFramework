@@ -1,6 +1,7 @@
 package com.xinlan.openes30showframework;
 
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 
 /**
  * Created by panyi on 2017/8/28.
@@ -19,4 +20,6 @@ public class NativeRenderJNI {
     public static native void resize(int width, int height);
 
     public static native void destory();
+
+    public static native int loadImage(Bitmap bitmap);
 }

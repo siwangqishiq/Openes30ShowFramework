@@ -7,6 +7,7 @@
 #include "IExe.h"
 #include "common.h"
 
+
 class HelloTrigle :public IExe {
 public:
     int init();

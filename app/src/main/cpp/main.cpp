@@ -1,7 +1,11 @@
+
+
+
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <string>
 #include <android/asset_manager_jni.h>
+#include <android/bitmap.h>
 #include "common.h"
 #include "HelloTrigle.h"
 #include "VertexDemo.h"
@@ -11,11 +15,60 @@
 #include "ElemDraw.h"
 #include "Texture.h"
 
-static IExe *exe;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass type,
+static IExe *exe;
+Bit *bitImage;
+
+jint Java_com_xinlan_openes30showframework_NativeRenderJNI_loadImage(JNIEnv *env, jclass type, jobject bitmap) {
+    if (bitImage != nullptr) {
+        delete bitImage->data;
+        delete bitImage;
+        bitImage = nullptr;
+    }
+
+    bitImage = (Bit *)malloc(sizeof(Bit));
+    if (bitImage == nullptr) {
+        return -1;
+    }
+
+    AndroidBitmapInfo bitmapInfo;
+    void *pixels;
+    int ret;
+
+    if ((ret = AndroidBitmap_getInfo(env, bitmap, &bitmapInfo)) < 0) {
+        return -1;
+    }
+    bitImage->width = bitmapInfo.width;
+    bitImage->height = bitmapInfo.height;
+    bitImage->perPixel = bitmapInfo.stride / bitmapInfo.width;
+    ALOGV("bitmapInfo width = %d", bitImage->width);
+    ALOGV("bitmapInfo height = %d",bitImage->height);
+    ALOGV("bitmapInfo stride = %d",bitImage->perPixel);
+    bitImage->data = (uint8_t *) malloc(bitImage->width * bitImage->height * bitImage->perPixel * sizeof(uint8_t));
+    if (bitImage->data == nullptr) {
+        ALOGE("malloc bit data error!");
+        free(bitImage);
+        return -1;
+    }
+
+    if ((ret = AndroidBitmap_lockPixels(env, bitmap, &pixels)) < 0) {
+        return -1;
+    }
+
+    memcpy(bitImage->data, (uint8_t *) pixels,
+           bitImage->width * bitImage->height * bitImage->perPixel);//copy image data;
+    ALOGV("copy image data complete");
+
+    AndroidBitmap_unlockPixels(env, bitmap);
+    ALOGV("bitImage = %lu" , bitImage);
+
+    return 0;
+}
+
+void Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass type,
                                                            jobject assetMgr) {
     printGlString("Version", GL_VERSION);
     printGlString("Vendor", GL_VENDOR);
@@ -23,11 +76,11 @@ Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass t
     printGlString("Extensions", GL_EXTENSIONS);
     ALOGE("init");
 
-    AAssetManager* mgr = AAssetManager_fromJava(env, assetMgr);
-    AAssetDir* assetDir = AAssetManager_openDir(mgr, "");
-    const char* filename;
+    AAssetManager *mgr = AAssetManager_fromJava(env, assetMgr);
+    AAssetDir *assetDir = AAssetManager_openDir(mgr, "");
+    const char *filename;
     while ((filename = AAssetDir_getNextFileName(assetDir)) != NULL) {
-        ALOGE("asset file  = %s",filename);
+        //ALOGE("asset file  = %s",filename);
 //        AAsset* asset = AAssetManager_open(mgr, filename, AASSET_MODE_STREAMING);
 //        char buf[BUFSIZ];
 //        int nb_read = 0;
@@ -39,7 +92,7 @@ Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass t
     }//end while
     AAssetDir_close(assetDir);
 
-    if(exe!= nullptr){
+    if (exe != nullptr) {
         delete exe;
         exe = nullptr;
     }
@@ -50,30 +103,28 @@ Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jclass t
     //exe = new VboShow();
     //exe = new VaoInstance();
     //exe = new ElemDraw();
-    exe = new TextureInstance();
+    //exe = new TextureInstance();
+    exe = new SimpleTexture();
     exe->init();
 }
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_xinlan_openes30showframework_NativeRenderJNI_update(JNIEnv *env, jclass type) {
+void Java_com_xinlan_openes30showframework_NativeRenderJNI_update(JNIEnv *env, jclass type) {
     //ALOGE("draw frame");
     exe->update();
 }
 
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_xinlan_openes30showframework_NativeRenderJNI_resize(JNIEnv *env, jclass type, jint width, jint height) {
+void Java_com_xinlan_openes30showframework_NativeRenderJNI_resize(JNIEnv *env, jclass type, jint width,
+                                                             jint height) {
     ALOGE("resize");
-    exe->resize(width ,height);
+    exe->resize(width, height);
 }
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_xinlan_openes30showframework_NativeRenderJNI_destory(JNIEnv *env, jclass type) {
+void Java_com_xinlan_openes30showframework_NativeRenderJNI_destory(JNIEnv *env, jclass type) {
     ALOGE("desorty");
     exe->destory();
 }
 
-
+#ifdef __cplusplus
+}
+#endif

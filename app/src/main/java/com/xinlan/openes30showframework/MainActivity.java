@@ -1,8 +1,12 @@
 package com.xinlan.openes30showframework;
 
+import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.zip.ZipOutputStream;
 
 public class MainActivity extends AppCompatActivity {
