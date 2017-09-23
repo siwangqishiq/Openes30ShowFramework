@@ -7,6 +7,7 @@
 
 #include <android/bitmap.h>
 #include <android/log.h>
+#include <android/bitmap.h>
 #include <math.h>
 #include <GLES3/gl3.h>
 #include <stdlib.h>
