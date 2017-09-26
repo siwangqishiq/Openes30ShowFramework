@@ -14,6 +14,7 @@
 #include "VaoInstance.h"
 #include "ElemDraw.h"
 #include "Texture.h"
+#include "FragShader.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -104,7 +105,8 @@ void Java_com_xinlan_openes30showframework_NativeRenderJNI_init(JNIEnv *env, jcl
     //exe = new VaoInstance();
     //exe = new ElemDraw();
     //exe = new TextureInstance();
-    exe = new SimpleTexture();
+    //exe = new SimpleTexture();
+    exe = new FragConfig();
     exe->init();
 }
 

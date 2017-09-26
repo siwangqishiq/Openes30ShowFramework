@@ -31,7 +31,8 @@ public class RenderSurface extends GLSurfaceView implements GLSurfaceView.Render
         setEGLConfigChooser(8, 8, 8, 0, 16, 0);
         setEGLContextClientVersion(3);
         setRenderer(this);
-
+        //setRenderMode(RENDERMODE_WHEN_DIRTY);
+        setRenderMode(RENDERMODE_CONTINUOUSLY);
         readImages();
     }
 

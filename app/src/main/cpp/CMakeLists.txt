@@ -27,6 +27,7 @@ add_library( # Sets the name of the library.
              VaoInstance.cpp
              ElemDraw.cpp
              Texture.cpp
+             FragShader.cpp
              )
 
 #add_library( test-lib
